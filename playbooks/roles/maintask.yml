@@ -1,0 +1,7 @@
+---
+- name: main task
+  hosts: all
+  become: true
+
+  roles:
+    - setup-apache-role

@@ -1,0 +1,9 @@
+---
+- name: my playbook
+  hosts: all
+  become: yes
+  tasks:
+    - name: install multiple package
+      yum:
+        name: [ "git" , "tree" , "telnet" , "docker*" ]
+        state: installed

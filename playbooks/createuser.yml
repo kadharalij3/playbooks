@@ -1,0 +1,7 @@
+--- #users.yaml
+- hosts: webserver[0] 
+  become: yes
+  tasks
+  -user: name=lapo
+   password: A1234567890@z
+

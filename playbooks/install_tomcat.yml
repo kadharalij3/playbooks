@@ -1,0 +1,38 @@
+---
+- name: My playbook
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: Install java package
+      yum:
+        name: java
+        state: installed
+      when: ansible_os_family == "RedHat"
+
+    - name: Install java package
+      apt:
+        name: default-jdk
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: download tomcat file
+      get_url:
+        url: https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.91/bin/apache-tomcat-8.5.91.tar.gz
+        dest: /opt
+
+    - name: extract the file
+      unarchive:
+        src: /opt/apache-tomcat-8.5.91.tar.gz
+        dest: /opt
+        remote_src: yes
+
+    - name: Change file ownership
+      file:
+        path: /opt/apache-tomcat-8.5.91/bin/startup.sh
+        mode: '0777'
+
+    - name: start  tomcat
+      shell: nohup ./startup.sh                                                                                                                                                       
+      args:
+        chdir: /opt/apache-tomcat-8.5.91/bin
+    

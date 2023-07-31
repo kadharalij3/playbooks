@@ -1,0 +1,7 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: creating a user kadhar
+    user: name=demon
+
